@@ -46,14 +46,13 @@ def json_vers_nx(chemin):
                     acteur2 = acteurs[j].strip("[]")
                 if not graphe.has_edge(acteur1, acteur2):
                     graphe.add_edge(acteur1, acteur2)
-
-    print(graphe)
     plt.cla()
     nx.draw(graphe, with_labels=True)
     plt.show()
-    return plt.gcf()
+    print(graphe)
+    return graphe
 
-print(json_vers_nx("./data.json"))
+json_vers_nx("./data.json")
 
 # Q2
 def collaborateurs_communs(G, u, v):
@@ -67,31 +66,33 @@ def collaborateurs_communs(G, u, v):
     Returns:
         set: L'ensemble des acteurs en commun.
     """
-    pass
+    collab_u = set(G.neighbors(u))
+    collab_v = set(G.neighbors(v))
+    return collab_u.intersection(collab_v)
 
 # Q3
-# def collaborateurs_proches(G,u,k):
-#     """Fonction renvoyant l'ensemble des acteurs à distance au plus k de l'acteur u dans le graphe G. La fonction renvoie None si u est absent du graphe.
+def collaborateurs_proches(G,u,k):
+    """Fonction renvoyant l'ensemble des acteurs à distance au plus k de l'acteur u dans le graphe G. La fonction renvoie None si u est absent du graphe.
     
-#     Parametres:
-#         G: le graphe
-#         u: le sommet de départ
-#         k: la distance depuis u
-#     """
-#     if u not in G.nodes:
-#         print(u,"est un illustre inconnu")
-#         return None
-#     collaborateurs = set()
-#     collaborateurs.add(u)
-#     print(collaborateurs)
-#     for i in range(k):
-#         collaborateurs_directs = set()
-#         for c in collaborateurs:
-#             for voisin in G.adj[c]:
-#                 if voisin not in collaborateurs:
-#                     collaborateurs_directs.add(voisin)
-#         collaborateurs = collaborateurs.union(collaborateurs_directs)
-#     return collaborateurs
+    Parametres:
+        G: le graphe
+        u: le sommet de départ
+        k: la distance depuis u
+    """
+    if u not in G.nodes:
+        print(u,"est un illustre inconnu")
+        return None
+    collaborateurs = set()
+    collaborateurs.add(u)
+    print(collaborateurs)
+    for i in range(k):
+        collaborateurs_directs = set()
+        for c in collaborateurs:
+            for voisin in G.adj[c]:
+                if voisin not in collaborateurs:
+                    collaborateurs_directs.add(voisin)
+        collaborateurs = collaborateurs.union(collaborateurs_directs)
+    return collaborateurs
 
 def est_proche(G, u, v, k=1):
     """Vérifie si deux acteurs se trouvent à une distance au plus k l'un de l'autre dans le graphe.

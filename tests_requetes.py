@@ -1,7 +1,6 @@
 import networkx as nx
 import requetes
 
-
 G = nx.Graph()
 G.add_edge("Acteur A", "Acteur B")
 G.add_edge("Acteur A", "Acteur C")

@@ -163,6 +163,7 @@ def distance(G, u, v):
         distance += 1
     
     return float('inf')
+
 # Q4
 def centralite(G, u):
     """Calcule la centralité d'un acteur dans le graphe.

@@ -1,14 +1,16 @@
 import networkx as nx
 import requetes
 
+
+G = nx.Graph()
+G.add_edge("Acteur A", "Acteur B")
+G.add_edge("Acteur A", "Acteur C")
+G.add_edge("Acteur B", "Acteur C")
+G.add_edge("Acteur B", "Acteur D")
+G.add_edge("Acteur C", "Acteur D")
+G.add_edge("Acteur D", "Acteur E")
+
 def test_collaborateurs_communs():
-    G = nx.Graph()
-    G.add_edge("Acteur A", "Acteur B")
-    G.add_edge("Acteur A", "Acteur C")
-    G.add_edge("Acteur B", "Acteur C")
-    G.add_edge("Acteur B", "Acteur D")
-    G.add_edge("Acteur C", "Acteur D")
-    G.add_edge("Acteur D", "Acteur E")
 
     assert requetes.collaborateurs_communs(G, "Acteur A", "Acteur B") == {"Acteur C"}
 

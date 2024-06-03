@@ -106,10 +106,7 @@ def est_proche(G, u, v, k=1):
     Returns:
         bool: True si les acteurs se trouvent à une distance au plus k l'un de l'autre, False sinon.
     """
-    try:
-        return nx.shortest_path_length(G, u, v) <= k
-    except nx.NetworkXNoPath:
-        return False
+    return v in collaborateurs_proches(G, u, k)
 
 def distance_naive(G, u, v):
     """Calcule la distance la plus courte entre deux acteurs dans le graphe de manière naïve.
@@ -122,10 +119,18 @@ def distance_naive(G, u, v):
     Returns:
         int: La distance entre les deux acteurs.
     """
-    try:
-        return nx.shortest_path_length(G, u, v)
-    except nx.NetworkXNoPath:
-        return float('inf')
+    if u == v:
+        return 0
+    
+    k = 1
+    while True:
+        proches = collaborateurs_proches(G, u, k)
+        if proches is None:
+            return float('inf')
+        if v in proches:
+            return k
+        k += 1
+    
 
 def distance(G, u, v):
     """Calcule la distance la plus courte entre deux acteurs dans le graphe.
@@ -138,8 +143,26 @@ def distance(G, u, v):
     Returns:
         int: La distance entre les deux acteurs.
     """
-    return nx.shortest_path_length(G, u, v)
-
+    if u == v:
+        return 0
+    
+    distance = 0
+    visite = set()
+    visite.add(u)
+    niveau_courant = {u}  
+    
+    while niveau_courant:
+        niveau_suivant = set()  
+        for acteur in niveau_courant:
+            if acteur == v:
+                return distance
+            voisins = set(G.neighbors(acteur))
+            visite.update(voisins)
+            niveau_suivant.update(voisins - visite)
+        niveau_courant = niveau_suivant
+        distance += 1
+    
+    return float('inf')
 # Q4
 def centralite(G, u):
     """Calcule la centralité d'un acteur dans le graphe.

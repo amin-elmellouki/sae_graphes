@@ -66,9 +66,7 @@ def collaborateurs_communs(G, u, v):
     Returns:
         set: L'ensemble des acteurs en commun.
     """
-    collab_u = set(G.neighbors(u))
-    collab_v = set(G.neighbors(v))
-    return collab_u.intersection(collab_v)
+    return {voisin for voisin in G.adj[u] if voisin in G.adj[v]}
 
 # Q3
 def collaborateurs_proches(G,u,k):
@@ -163,6 +161,7 @@ def distance(G, u, v):
         distance += 1
     
     return float('inf')
+
 # Q4
 def centralite(G, u):
     """Calcule la centralité d'un acteur dans le graphe.
@@ -174,7 +173,11 @@ def centralite(G, u):
     Returns:
         int: La centralité de l'acteur.
     """
-    pass
+    if u in G:
+        return len(G.neighbors(u))
+    else:
+        print(u," est inconnu au bataillon")
+
 
 def centre_hollywood(G):
     """Détermine l'acteur le plus central dans le graphe.
@@ -185,7 +188,15 @@ def centre_hollywood(G):
     Returns:
         str: L'acteur le plus central.
     """
-    pass
+    centralite_max = float("-inf")
+    acteur_central = ""
+    for acteur in G.nodes:
+        c_acteur = centralite(G, acteur)
+        if c_acteur > centralite_max:
+            centralite_max = c_acteur
+            acteur_central = acteur
+    return acteur_central
+
 
 # Q5
 def eloignement_max(G: nx.Graph):

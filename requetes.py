@@ -146,7 +146,7 @@ def distance(G, u, v):
     visite.add(u)
     niveau_courant = {u}  
     
-    while niveau_courant:
+    while niveau_courant != set():
         niveau_suivant = set()  
         for acteur in niveau_courant:
             if acteur == v:
@@ -185,6 +185,9 @@ def centre_hollywood(G):
     Returns:
         str: L'acteur le plus central.
     """
+    if len(G) == 0:
+        return None
+    
     centralite_max = float("-inf")
     acteur_central = ""
     for acteur in G.nodes:
@@ -209,7 +212,7 @@ def eloignement_max(G: nx.Graph):
     for u in G.nodes:
         for v in G.nodes:
             if u != v:
-                distance_uv = distance_naive(G, u, v)
+                distance_uv = distance(G, u, v)
                 if distance_uv > longueur_max:
                     longueur_max = distance_uv
     return longueur_max

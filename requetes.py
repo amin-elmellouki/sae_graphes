@@ -46,10 +46,7 @@ def json_vers_nx(chemin):
                     acteur2 = acteurs[j].strip("[]")
                 if not graphe.has_edge(acteur1, acteur2):
                     graphe.add_edge(acteur1, acteur2)
-    plt.cla()
-    nx.draw(graphe, with_labels=True)
-    plt.show()
-    print(graphe)
+
     return graphe
 
 json_vers_nx("./data.json")
@@ -160,7 +157,7 @@ def distance(G, u, v):
         niveau_courant = niveau_suivant
         distance += 1
     
-    return float('inf')
+    return None
 
 # Q4
 def centralite(G, u):
@@ -174,7 +171,7 @@ def centralite(G, u):
         int: La centralité de l'acteur.
     """
     if u in G:
-        return len(G.neighbors(u))
+        return len(list(G.neighbors(u)))
     else:
         print(u," est inconnu au bataillon")
 
@@ -208,4 +205,11 @@ def eloignement_max(G: nx.Graph):
     Returns:
         int: La distance maximale entre toutes les paires d'acteurs.
     """
-    pass
+    longueur_max = 0
+    for u in G.nodes:
+        for v in G.nodes:
+            if u != v:
+                distance_uv = distance_naive(G, u, v)
+                if distance_uv > longueur_max:
+                    longueur_max = distance_uv
+    return longueur_max

@@ -57,4 +57,9 @@ def test_centre_hollywood():
 
 # Test de la fonction eloignement_max
 def test_eloignement_max():
-    pass  # À compléter 
+    assert requetes.eloignement_max(G) == 3
+    G.add_edge("Acteur F", "Acteur G")
+    G.add_edge("Acteur G", "Acteur H")
+    assert requetes.eloignement_max(G) == 3
+    G.add_node("Acteur I")
+    assert requetes.eloignement_max(G) == 3 

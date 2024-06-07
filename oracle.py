@@ -46,7 +46,11 @@ def oracle():
             # Calculer la distance entre deux acteurs
             acteur1 = input("Entrez le nom du premier acteur : ")
             acteur2 = input("Entrez le nom du deuxième acteur : ")
-            print("La distance entre ", acteur1, "et", acteur2, "est : ", requetes.distance(G, acteur1, acteur2))
+            distance = requetes.distance(G, acteur1, acteur2)
+            if distance == -1:
+                print("L'acteur", acteur2, "n'est pas dans le graphe.")
+            else:
+                print("La distance entre ", acteur1, "et", acteur2, "est : ", requetes.distance(G, acteur1, acteur2))
         elif choix == "5":
             # Calculer la centralité d'un acteur
             acteur = input("Entrez le nom de l'acteur : ")

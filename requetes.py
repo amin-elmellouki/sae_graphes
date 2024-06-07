@@ -138,26 +138,26 @@ def distance(G, u, v):
     Returns:
         int: La distance entre les deux acteurs.
     """
-    if u == v:
-        return 0
-    
+    if v not in G.nodes:
+        return -1
+
+    visited = set()
+    acteur_suivant = {u}
     distance = 0
-    visite = set()
-    visite.add(u)
-    niveau_courant = {u}  
-    
-    while niveau_courant != set():
-        niveau_suivant = set()  
-        for acteur in niveau_courant:
-            if acteur == v:
-                return distance
-            voisins = set(G.neighbors(acteur))
-            visite.update(voisins)
-            niveau_suivant.update(voisins - visite)
-        niveau_courant = niveau_suivant
+
+    while acteur_suivant:
+        if v in acteur_suivant:
+            return distance
+        visited.update(acteur_suivant)
+        nouveau_acteurs_proches = set()
+        for actor in acteur_suivant:
+            nouveau_acteurs_proches.update(G.neighbors(actor))
+        acteur_suivant = nouveau_acteurs_proches - visited
         distance += 1
     
-    return None
+    return -1
+
+
 
 # Q4
 def centralite(G, u):

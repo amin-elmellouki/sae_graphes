@@ -34,18 +34,11 @@ def test_est_proche():
     assert requetes.est_proche(G, "Acteur A", "Acteur E", 2) == False
     assert requetes.est_proche(G, "Acteur G", "Acteur H", 1) == False
 
-# # Test de la fonction distance_naive
-# def test_distance_naive():
-#     assert requetes.distance_naive(G, "Acteur A", "Acteur B") == 1
-#     assert requetes.distance_naive(G, "Acteur A", "Acteur E") == 3
-#     assert requetes.distance_naive(G, "Acteur G", "Acteur H") == float('inf')
-
 # Test de la fonction distance
 def test_distance():
     assert requetes.distance(G, "Acteur A", "Acteur B") == 1
     assert requetes.distance(G, "Acteur A", "Acteur E") == 3
     assert requetes.distance(G, "Acteur G", "Acteur H") == -1
-
 
 # Test de la fonction centralite
 def test_centralite():

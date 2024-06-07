@@ -126,7 +126,6 @@ def distance_naive(G, u, v):
             return k
         k += 1
     
-
 def distance(G, u, v):
     """Calcule la distance la plus courte entre deux acteurs dans le graphe.
 
@@ -141,23 +140,21 @@ def distance(G, u, v):
     if v not in G.nodes:
         return -1
 
-    visited = set()
+    visite = set()
     acteur_suivant = {u}
     distance = 0
 
     while acteur_suivant:
         if v in acteur_suivant:
             return distance
-        visited.update(acteur_suivant)
+        visite.update(acteur_suivant)
         nouveau_acteurs_proches = set()
         for actor in acteur_suivant:
             nouveau_acteurs_proches.update(G.neighbors(actor))
-        acteur_suivant = nouveau_acteurs_proches - visited
+        acteur_suivant = nouveau_acteurs_proches - visite
         distance += 1
     
     return -1
-
-
 
 # Q4
 def centralite(G, u):

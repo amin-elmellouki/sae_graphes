@@ -213,6 +213,8 @@ def eloignement_max(G: nx.Graph):
         for v in G.nodes:
             if u != v:
                 distance_uv = distance(G, u, v)
+                if distance_uv == -1:
+                    continue  # Ignore les paires d'acteurs non connectés
                 if distance_uv > longueur_max:
                     longueur_max = distance_uv
     return longueur_max

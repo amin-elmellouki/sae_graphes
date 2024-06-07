@@ -57,11 +57,11 @@ def test_centralite():
 def test_centre_hollywood():
     assert requetes.centre_hollywood(G) == "Acteur B" or "Acteur D"
 
-# # Test de la fonction eloignement_max
-# def test_eloignement_max():
-#     assert requetes.eloignement_max(G) == 3
-#     G.add_edge("Acteur F", "Acteur G")
-#     G.add_edge("Acteur G", "Acteur H")
-#     assert requetes.eloignement_max(G) == 3
-#     G.add_node("Acteur I")
-#     assert requetes.eloignement_max(G) == 3 
+# Test de la fonction eloignement_max
+def test_eloignement_max():
+    assert requetes.eloignement_max(G) == 3
+    G.add_edge("Acteur F", "Acteur G")
+    G.add_edge("Acteur G", "Acteur H")
+    assert requetes.eloignement_max(G) == 3
+    G.add_node("Acteur I")
+    assert requetes.eloignement_max(G) == 3 
